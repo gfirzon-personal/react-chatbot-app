@@ -9,7 +9,6 @@ import { fetchAIResponse } from "./utils/fetchAIResponse";
 import { handleFeedback } from "./utils/FeedbackService";
 //import FeedbackComponent from './FeedbackComponent';
 import GptFeedback from './GptFeedbackComponent';
-import FeedbackTab from './FeedbackTab';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -28,7 +27,7 @@ const Chatbot = () => {
     await handleFeedback(data, currentMessageId); 
     // Process feedback (e.g., send to API)
     // Show toast notification
-    const message = `${data.feedback === 'up' ? '👍' : '👎'}<br>${data.comment}`;
+    const message = `Feedback submitted: <br/>${data.feedback === 'up' ? '👍' : '👎'}<br>${data.comment}`;
     toast.info(<div dangerouslySetInnerHTML={{ __html: message }} />, {
       className: 'toast-green',
     });
