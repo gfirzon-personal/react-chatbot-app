@@ -20,7 +20,11 @@ export const fetchAIResponse = async (apiMessages) => {
 
         //console.log("AI response:", response.data.choices[0].message.content);        
 
-        return response.data.choices[0].message.content;
+        //return response.data.choices[0].message.content;
+        return {
+            content: response.data.choices[0].message.content,
+            id: response.data.id,
+        }
     } catch (error) {
         console.error("Error fetching AI response:", error);
         throw new Error("Unable to fetch AI response.");

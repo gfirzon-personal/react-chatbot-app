@@ -6,6 +6,7 @@ import './MyToast.css'; // Add styles here or inline
 import './Chatbot.css'; // Add styles here or inline
 import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
+import { handleFeedback } from "./utils/FeedbackService";
 //import FeedbackComponent from './FeedbackComponent';
 import GptFeedback from './GptFeedbackComponent';
 import FeedbackTab from './FeedbackTab';
@@ -13,14 +14,18 @@ import FeedbackTab from './FeedbackTab';
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
+  const [currentMessageId, setCurrentMessageId] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
 
   const handleFeedbackClick = () => {
     setShowFeedback(true);
   };
 
-  const handleFeedbackSubmit = (data) => {
-    console.log("Feedback submitted:", data);
+  const handleFeedbackSubmit = async (data) => {
+    console.log("handleFeedbackSubmit invoked:", data);
+    
+    // Call feedback service to save feedback
+    await handleFeedback(data, currentMessageId); 
     // Process feedback (e.g., send to API)
     // Show toast notification
     const message = `${data.feedback === 'up' ? '👍' : '👎'}<br>${data.comment}`;
@@ -50,8 +55,9 @@ const Chatbot = () => {
     ];
 
     try {
-      const aiContent = await fetchAIResponse(apiMessages);
-      const aiMessage = { role: "assistant", content: aiContent };
+      const { content: aiContent, id } = await fetchAIResponse(apiMessages);
+      const aiMessage = { role: "assistant", content: aiContent, id };
+      setCurrentMessageId(id);
 
       setMessages((prevMessages) => [...prevMessages, aiMessage]);
     } catch (error) {
@@ -75,6 +81,11 @@ const Chatbot = () => {
               {msg.role === 'assistant' && <span role="img" aria-label="AI">🤖</span>}
               {msg.role === 'user' && <span role="img" aria-label="USER">👤</span>}
               {msg.content}
+              {/* {msg.role === 'assistant' &&
+                <div className='assistant-id'>
+                  {msg.id}
+                </div>
+              } */}
               {msg.role === 'assistant' && index === messages.length - 1 &&
                 <div>
                   <span
