@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './MyToast.css'; // Add styles here or inline
+
 import './Chatbot.css'; // Add styles here or inline
 import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
@@ -18,6 +22,11 @@ const Chatbot = () => {
   const handleFeedbackSubmit = (data) => {
     console.log("Feedback submitted:", data);
     // Process feedback (e.g., send to API)
+    // Show toast notification
+    const message = `${data.feedback === 'up' ? '👍' : '👎'}<br>${data.comment}`;
+    toast.info(<div dangerouslySetInnerHTML={{ __html: message }} />, {
+      className: 'toast-green',
+    });
   };
 
   const handleDismissFeedback = () => {
@@ -93,6 +102,7 @@ const Chatbot = () => {
           <button onClick={handleSendMessage}>Send</button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
