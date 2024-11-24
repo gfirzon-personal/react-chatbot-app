@@ -4,11 +4,16 @@ import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
 //import FeedbackComponent from './FeedbackComponent';
 import GptFeedback from './GptFeedbackComponent';
+import FeedbackTab from './FeedbackTab';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
+
+  const handleFeedbackClick = () => {
+    setShowFeedback(true);
+  };
 
   const handleFeedbackSubmit = (data) => {
     console.log("Feedback submitted:", data);
@@ -25,7 +30,7 @@ const Chatbot = () => {
 
     const userMessage = { role: "user", content: userInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setShowFeedback(true); // Show feedback component when new response is received
+    //setShowFeedback(true); // Show feedback component when new response is received
 
     setUserInput(""); // Clear input
     //setIsTyping(true); // Show typing indicator
@@ -61,8 +66,19 @@ const Chatbot = () => {
               {msg.role === 'assistant' && <span role="img" aria-label="AI">🤖</span>}
               {msg.role === 'user' && <span role="img" aria-label="USER">👤</span>}
               {msg.content}
+              {msg.role === 'assistant' && index === messages.length - 1 &&
+                <div>
+                  <span
+                    className="far fa-thumbs-up"
+                    onClick={handleFeedbackClick}
+                    style={{ cursor: 'pointer' }}
+                    aria-label="thumbs up"
+                  ></span>
+                </div>
+              }
             </div>
           ))}
+          {/* <FeedbackTab onClick={handleFeedbackClick} /> */}
           {showFeedback && (
             <GptFeedback onSubmitFeedback={handleFeedbackSubmit} onDismiss={handleDismissFeedback} />
           )}
