@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Chatbot.css'; // Add styles here or inline
+import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
 
 const Chatbot = () => {
@@ -37,13 +38,7 @@ const Chatbot = () => {
 
   return (
     <div className="page-container">
-      <div className="sidebar">
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-        </ul>
-      </div>
+      <Sidebar />
       <div className="chatbot-container">
         <div className="chatbox">
           {/*console.log(messages)*/} 
