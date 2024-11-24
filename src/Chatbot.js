@@ -38,7 +38,7 @@ const Chatbot = () => {
   return (
     <div className="chatbot-container">
       <div className="chatbox">
-        {console.log(messages)} {/* This logs to the console */}
+        {/*console.log(messages)*/} 
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             {msg.content}
