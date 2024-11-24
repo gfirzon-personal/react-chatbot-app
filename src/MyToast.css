@@ -1,0 +1,16 @@
+.toast-green {
+  background-color: rgb(220, 236, 220) !important;
+  color: black !important;
+  font-family: Arial, sans-serif;
+  /* Set a clean, readable font */
+  font-size: 16px;
+  /* Adjust the font size for better readability */
+  /* font-weight: bold; */
+  /* Make the text bold */
+  padding: 10px 20px;
+  /* Add padding for better spacing */
+  border-radius: 8px;
+  /* Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Add a subtle shadow */
+}
