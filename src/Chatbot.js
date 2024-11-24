@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import './Chatbot.css'; // Add styles here or inline
 import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
+//import FeedbackComponent from './FeedbackComponent';
+import GptFeedback from './GptFeedbackComponent';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  const handleFeedbackSubmit = (data) => {
+    console.log("Feedback submitted:", data);
+    // Process feedback (e.g., send to API)
+  };
+
+  const handleDismissFeedback = () => {
+    console.log("Feedback dismissed");
+    setShowFeedback(false);
+  };
 
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
 
     const userMessage = { role: "user", content: userInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setShowFeedback(true); // Show feedback component when new response is received
 
     setUserInput(""); // Clear input
     //setIsTyping(true); // Show typing indicator
@@ -41,12 +55,15 @@ const Chatbot = () => {
       <Sidebar />
       <div className="chatbot-container">
         <div className="chatbox">
-          {/*console.log(messages)*/} 
+          {/*console.log(messages)*/}
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.role}`}>
               {msg.content}
             </div>
           ))}
+          {showFeedback && (
+            <GptFeedback onSubmitFeedback={handleFeedbackSubmit} onDismiss={handleDismissFeedback} />
+          )}
         </div>
         <div className="input-container">
           <input
