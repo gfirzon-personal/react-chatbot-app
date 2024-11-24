@@ -58,6 +58,8 @@ const Chatbot = () => {
           {/*console.log(messages)*/}
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.role}`}>
+              {msg.role === 'assistant' && <span role="img" aria-label="AI">🤖</span>}
+              {msg.role === 'user' && <span role="img" aria-label="USER">👤</span>}
               {msg.content}
             </div>
           ))}
