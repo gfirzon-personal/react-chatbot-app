@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import './Chatbot.css'; // Add styles here or inline
 import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
+import FeedbackComponent from './FeedbackComponent';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
 
     const userMessage = { role: "user", content: userInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setShowFeedback(true); // Show feedback component when new response is received
 
     setUserInput(""); // Clear input
     //setIsTyping(true); // Show typing indicator
@@ -47,6 +50,7 @@ const Chatbot = () => {
               {msg.content}
             </div>
           ))}
+          {showFeedback && <FeedbackComponent />}
         </div>
         <div className="input-container">
           <input
