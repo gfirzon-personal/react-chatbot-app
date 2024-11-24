@@ -27,7 +27,12 @@
     color: white;
     align-self: flex-end;
   }
-  
+  .message.assistant {
+    background: #e9ecef;
+    color: #333;
+    align-self: flex-start;
+  }
+
   .message.ai {
     background: #e9ecef;
     color: #333;
