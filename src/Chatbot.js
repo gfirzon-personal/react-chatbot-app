@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Chatbot.css'; // Add styles here or inline
+import Sidebar from './Sidebar';
 import { fetchAIResponse } from "./utils/fetchAIResponse";
 
 const Chatbot = () => {
@@ -36,23 +37,26 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot-container">
-      <div className="chatbox">
-        {/*console.log(messages)*/} 
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
-            {msg.content}
-          </div>
-        ))}
-      </div>
-      <div className="input-container">
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Type your message..."
-        />
-        <button onClick={handleSendMessage}>Send</button>
+    <div className="page-container">
+      <Sidebar />
+      <div className="chatbot-container">
+        <div className="chatbox">
+          {/*console.log(messages)*/} 
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.role}`}>
+              {msg.content}
+            </div>
+          ))}
+        </div>
+        <div className="input-container">
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            placeholder="Type your message..."
+          />
+          <button onClick={handleSendMessage}>Send</button>
+        </div>
       </div>
     </div>
   );
