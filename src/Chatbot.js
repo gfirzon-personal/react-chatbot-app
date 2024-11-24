@@ -36,23 +36,32 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot-container">
-      <div className="chatbox">
-        {/*console.log(messages)*/} 
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
-            {msg.content}
-          </div>
-        ))}
+    <div className="page-container">
+      <div className="sidebar">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
       </div>
-      <div className="input-container">
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Type your message..."
-        />
-        <button onClick={handleSendMessage}>Send</button>
+      <div className="chatbot-container">
+        <div className="chatbox">
+          {/*console.log(messages)*/} 
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.role}`}>
+              {msg.content}
+            </div>
+          ))}
+        </div>
+        <div className="input-container">
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            placeholder="Type your message..."
+          />
+          <button onClick={handleSendMessage}>Send</button>
+        </div>
       </div>
     </div>
   );
